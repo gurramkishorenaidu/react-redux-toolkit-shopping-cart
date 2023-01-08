@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    cart: JSON.parse(localStorage.getItem('cart')) || [],
-    cartCount: JSON.parse(localStorage.getItem('cartCount')) || 0, // retrieve the cart count from local storage
+    cart: [],
+    cartCount: 0, // retrieve the cart count from local storage
   },
   reducers: {
     addToCart: (state, action) => {
@@ -15,15 +15,15 @@ const cartSlice = createSlice({
         state.cart.push({ ...action.payload, quantity: 1 });
       }
       state.cartCount++; // increment the count when an item is added to the cart
-      localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
-      localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
+    //   localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
+    //   localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
     },
     incrementQuantity: (state, action) => {
       const item = state.cart.find((item) => item.id === action.payload);
       item.quantity++;
       state.cartCount++; // increment the count when the quantity of an item is incremented
-      localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
-      localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
+    //   localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
+    //   localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
     },
     decrementQuantity: (state, action) => {
         const item = state.cart.find((item) => item.id === action.payload);
@@ -32,8 +32,8 @@ const cartSlice = createSlice({
         } else {
           item.quantity--;
           state.cartCount--; // decrement the count when the quantity of an item is decremented
-          localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
-          localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
+        //   localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
+        //   localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
         }
       },
       
@@ -41,8 +41,8 @@ const cartSlice = createSlice({
       const removeItem = state.cart.filter((item) => item.id !== action.payload);
       state.cart = removeItem;
       state.cartCount--; // decrement the count when an item is removed from the cart
-      localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
-      localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
+    //   localStorage.setItem('cart', JSON.stringify(state.cart)); // store the cart in local storage
+    //   localStorage.setItem('cartCount', JSON.stringify(state.cartCount)); // store the cart count in local storage
     },
   },
 });
