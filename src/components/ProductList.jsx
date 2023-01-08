@@ -1,37 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Data from "../Data";
-import { useDispatch } from "react-redux";
-import {
-  addToCart,
-  incrementQuantity,
-  decrementQuantity,
-} from "../redux/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart, decrementQuantity } from "../redux/cartSlice";
 
 const ProductList = () => {
-  const [products, setProducts] = useState(Data);
   const dispatch = useDispatch();
 
-  const handleQuantityChange = (id, change) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            quantity: (product.quantity || 0) + change, 
-          };
-        }
-        return product;
-      })
-    );
-
+  const handleQuantityChange = (productId, change) => {
     if (change === 1) {
-      dispatch(addToCart({ id, title: "", price: 0 }));
+      dispatch(addToCart({ id: productId, title: "", price: 0 }));
     } else {
-      dispatch(decrementQuantity(id));
+      dispatch(decrementQuantity(productId));
     }
   };
 
-  const productList = products.map((product) => {
+  const productList = Data.map((product) => {
+    const item = useSelector((state) =>
+      state.cart.find((item) => item.id === product.id)
+    );
+    const quantity = item ? item.quantity : 0;
     return (
       <div key={product.id} className="w-64 rounded-lg shadow-lg m-4">
         <img
@@ -46,7 +33,7 @@ const ProductList = () => {
             <p className="text-gray-700 text-base pt-4">${product.price}</p>
             <div className="mt-4">
               <div className="flex items-center text-gray-100 bg-teal-500">
-                {product.quantity === 0 || !product.quantity ? (
+                {quantity === 0 || !quantity ? (
                   <button
                     className="bg-teal-500 px-3 py-1 text-gray-100"
                     onClick={() => {
@@ -65,7 +52,7 @@ const ProductList = () => {
                     >
                       -
                     </button>
-                    <span className="px-2">{product.quantity}</span>
+                    <span className="px-2">{quantity}</span>
                     <button
                       className="bg-teal-500 px-3 py-1 text-gray-100"
                       onClick={() => {

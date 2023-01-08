@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
   const cartCount = useSelector((state) => state.cartCount); // get the cart slice of the store
    
-  console.log(cartCount)
+//   console.log(cartCount)
+const cart=useSelector((state) => state.cart);
+console.log(cart[0].quantity)
 
   return (
     <header className="flex items-center justify-between py-3 bg-gray-800 px-16">
