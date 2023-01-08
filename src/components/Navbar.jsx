@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const cart = useSelector((state) => state.cart); // get the cart slice of the store
-  const cartCount = cart.cartCount; // access the cartCount property of the cart slice
+  const cartCount = useSelector((state) => state.cartCount); // get the cart slice of the store
+  
   console.log(cartCount)
 
   return (
