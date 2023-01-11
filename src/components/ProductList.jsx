@@ -5,12 +5,13 @@ import { addToCart, decrementQuantity } from "../redux/cartSlice";
 
 const ProductList = () => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
 
-  const handleQuantityChange = (productId, change) => {
+  const handleQuantityChange = (productId, productTitle,change) => {
     if (change === 1) {
-      dispatch(addToCart({ id: productId, title: "", price: 0 }));
+      dispatch(addToCart({ id: productId, title: "productTitle", price: 0 }));
     } else {
-      dispatch(decrementQuantity(productId));
+      dispatch(decrementQuantity(productId,productTitle));
     }
   };
 
@@ -37,7 +38,7 @@ const ProductList = () => {
                   <button
                     className="bg-teal-500 px-3 py-1 text-gray-100"
                     onClick={() => {
-                      handleQuantityChange(product.id, 1);
+                      handleQuantityChange(product.id,product.title, 1);
                     }}
                   >
                     Add
@@ -47,7 +48,7 @@ const ProductList = () => {
                     <button
                       className="bg-teal-500 px-3 py-1 text-gray-100"
                       onClick={() => {
-                        handleQuantityChange(product.id, -1);
+                        handleQuantityChange(product.id,product.title -1);
                       }}
                     >
                       -
@@ -56,7 +57,7 @@ const ProductList = () => {
                     <button
                       className="bg-teal-500 px-3 py-1 text-gray-100"
                       onClick={() => {
-                        handleQuantityChange(product.id, 1);
+                        handleQuantityChange(product.id,product.title, 1);
                       }}
                     >
                       +

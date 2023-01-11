@@ -3,6 +3,8 @@ import { useState } from "react";
 
 const Navbar = () => {
   const cartCount = useSelector((state) => state.cartCount);
+  // const cart = useSelector((state) => state.cart);
+  console.log(cart)
   const [showDrawer, setShowDrawer] = useState(false);
 
   const toggleDrawer = () => {
@@ -10,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between py-3 bg-gray-800 px-16">
+    <header className="flex items-center justify-between py-3 bg-gray-800 px-16 sticky top-0">
       <div className="flex items-center font-bold text-xl text-white mr-6">
         My App
       </div>
@@ -24,7 +26,7 @@ const Navbar = () => {
           <path d="M4 2h16l-3 9H4a1 1 0 1 0 0 2h13v2H4a3 3 0 0 1 0-6h.33L3 5 2 2H0V0h3a1 1 0 0 1 1 1v1zm1 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
         </svg>
         {cartCount > 0 && (
-          <span className="bg-teal-500 rounded-full px-2 py-1 font-semibold text-xs text-white cursor-pointer">
+          <span className="absolute right-12 top-1 bg-teal-500 rounded-full px-2 py-1 font-semibold text-xs text-white cursor-pointer">
             {cartCount}
           </span>
         )}
@@ -36,29 +38,39 @@ const Navbar = () => {
             style={{ pointerEvents: "none" }}
           ></div>
           <div
-            className="fixed right-0 top-0 bottom-0 bg-white w-[30%] p-4 transform transition-transform ease-in-out duration-500"
+            className="fixed right-0 top-0 bottom-0 bg-white w-[30%] p-4 transform transition-transform ease-in-out duration-1000"
             style={{ transform: "translateX(0)" }}
           >
             <button
-              type="button"
+              className="absolute top-0 left-0 m-4"
               onClick={toggleDrawer}
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             >
               <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+                className="fill-current w-4 h-4 text-gray-400 hover:text-black"
                 xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
+                <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
               </svg>
             </button>
-            {/* Add your cart list here */}
+            {cart.length === 0 ? (
+              <p className="text-xl font-semibold text-center">Your cart is empty</p>
+            ) : (
+              <ul>
+                {cart.map((item) => (
+                  <li key={item.id}>
+                    {item.title}
+                    {item.price}
+                    <button
+                      className="ml-2"
+                      onClick={() => removeItemFromCart(item.id)}
+                    >
+                      XYZ Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </>
       )}

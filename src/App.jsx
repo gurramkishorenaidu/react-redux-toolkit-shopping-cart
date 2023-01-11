@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import store from "./redux/store"
 import { Provider } from "react-redux";
+// import CartPage from "./components/CartPage";
 
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
@@ -18,8 +19,10 @@ function App() {
         <PersistGate loading={null} persistor={persistor}>
           <Navbar />
           <ProductList />
+          
         </PersistGate>
       </Provider>
+      {/* <CartPage /> */}
     </div>
   );
 }

@@ -32,13 +32,19 @@ const Navbar = () => {
       {showDrawer && (
         <>
           <div
-            className="fixed left-0 top-0 bottom-0 bg-gray-500 bg-opacity-50 w-screen h-screen z-140"
-            style={{ pointerEvents: "none" }}
-          ></div>
-          <div
-            className="fixed right-0 top-0 bottom-0 bg-white w-[30%] p-4 transform transition-transform ease-in-out duration-500"
-            style={{ transform: "translateX(0)" }}
+            id="drawer-right-example"
+            className={`fixed z-40 h-screen p-4 overflow-y-auto bg-white w-30% right-0 top-0 transform ${
+              showDrawer ? "translate-x-0" : "translate-x-full"
+            }`}
+            tabIndex="-1"
+            aria-labelledby="drawer-right-label"
           >
+            <h5
+              id="drawer-right-label"
+              className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
+            >
+              Right Drawer
+            </h5>
             <button
               type="button"
               onClick={toggleDrawer}
@@ -57,13 +63,20 @@ const Navbar = () => {
                   clipRule="evenodd"
                 ></path>
               </svg>
+              <span className="sr-only">Close menu</span>
             </button>
-            {/* Add your cart list here */}
+            <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
+              Some content for the drawer goes here...
+            </p>
           </div>
+          <div
+            className="fixed top-0 left-0 h-screen w-100vw bg-black bg-opacity-75"
+            onClick={toggleDrawer}
+          ></div>
         </>
       )}
     </header>
   );
 };
 
-export default Navbar;
+export default Navbar
